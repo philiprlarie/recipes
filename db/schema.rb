@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 2018_11_11_031359) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "recipies_tables", force: :cascade do |t|
+  create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
-    t.text "steps", null: false
+    t.text "steps", default: "", null: false
     t.string "source", null: false
   end
 
