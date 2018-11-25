@@ -28,7 +28,8 @@ namespace :db do
         # https://www.rubydoc.info/gems/pg/PG/Connection#copy_data-instance_method
         conn.copy_data("COPY " + name + " TO STDOUT DELIMITER ',' CSV HEADER;") do
           while row = conn.get_copy_data
-            file.puts row
+            # https://www.ruby-forum.com/t/utf8-hell/182759 to fix encoding error, force_encoding
+            file.puts row.force_encoding('UTF-8')
           end
         end
       end
