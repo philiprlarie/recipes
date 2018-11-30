@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   # https://guides.rubyonrails.org/routing.html#controller-namespaces-and-routing
   namespace :api, module: nil do
     jsonapi_resources :recipes
+    jsonapi_resources :ingredients
   end
 end
