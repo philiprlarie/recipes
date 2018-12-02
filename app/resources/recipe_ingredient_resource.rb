@@ -1,6 +1,7 @@
 class RecipeIngredientResource < JSONAPI::Resource
-  attributes :created_at, :mass, :notes, :units, :updated_at, :volume
+  attributes :amount, :created_at, :notes, :updated_at
 
   belongs_to :recipe
   belongs_to :ingredient
+  belongs_to :measure
 end

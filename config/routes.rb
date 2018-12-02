@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   namespace :api, module: nil do
     jsonapi_resources :recipes
     jsonapi_resources :ingredients
+    jsonapi_resources :measures
   end
 end
