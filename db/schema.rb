@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_25_012357) do
+ActiveRecord::Schema.define(version: 2018_12_02_043750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,16 +21,24 @@ ActiveRecord::Schema.define(version: 2018_11_25_012357) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "measures", force: :cascade do |t|
+    t.integer "measure_type", null: false
+    t.string "unit", null: false
+    t.string "abbreviation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recipe_ingredients", force: :cascade do |t|
     t.bigint "recipe_id"
     t.bigint "ingredient_id"
-    t.float "units"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "volume"
-    t.float "mass"
     t.text "notes"
+    t.float "amount"
+    t.bigint "measure_id"
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["measure_id"], name: "index_recipe_ingredients_on_measure_id"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
@@ -46,4 +54,5 @@ ActiveRecord::Schema.define(version: 2018_11_25_012357) do
     t.float "servings", default: 0.0, null: false
   end
 
+  add_foreign_key "recipe_ingredients", "measures"
 end
