@@ -1,4 +1,4 @@
-class IngredientResource < JSONAPI::Resource
+class Api::IngredientResource < JSONAPI::Resource
   attributes :name, :created_at, :updated_at
 
   has_many :recipe_ingredients

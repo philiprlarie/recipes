@@ -1,4 +1,4 @@
-class MeasureResource < JSONAPI::Resource
+class Api::MeasureResource < JSONAPI::Resource
   attributes :abbreviation, :created_at, :measure_type, :unit, :updated_at
 
   belongs_to :recipe
