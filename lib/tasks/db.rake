@@ -1,6 +1,14 @@
 require 'csv'
 
 namespace :db do
+  desc "reset the database hard"
+  task reset_hard: :environment do
+    Rake::Task['db:drop'].invoke
+    Rake::Task['db:create'].invoke
+    Rake::Task['db:migrate'].invoke
+    puts "The app has been reset hard"
+  end
+
   desc "Output all of the database to CSV files"
   task to_csv: :environment do
     csv_directory = Rails.root.join('lib', 'csv')
@@ -44,6 +52,21 @@ namespace :db do
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
 
+    measures_csv_text = File.read(Rails.root.join('lib', 'csv', 'measures.csv'))
+    measures_csv = CSV.parse(measures_csv_text, :headers => true, :encoding => 'ISO-8859-1')
+    measures_csv.each do |row|
+      i = Measure.new
+      i.id = row['id']
+      i.measure_type = Measure.measure_types.key(row['measure_type'].to_i)
+      i.unit = row['unit']
+      i.abbreviation = row['abbreviation']
+      i.created_at = row['created_at']
+      i.updated_at = row['updated_at']
+      i.save!
+      puts "Measure \"#{i.unit}\" saved"
+    end
+    puts "There are now #{Measure.count} rows in the measures table"
+
     recipes_csv_text = File.read(Rails.root.join('lib', 'csv', 'recipes.csv'))
     recipes_csv = CSV.parse(recipes_csv_text, :headers => true, :encoding => 'ISO-8859-1')
     recipes_csv.each do |row|
@@ -54,7 +77,11 @@ namespace :db do
       r.source = row['source']
       r.created_at = row['created_at']
       r.updated_at = row['updated_at']
-      r.save
+      r.prep_time = row['prep_time']
+      r.cook_time = row['cook_time']
+      r.inactive_time = row['inactive_time']
+      r.servings = row['servings']
+      r.save!
       puts "Recipe \"#{r.name}\" saved"
     end
     puts "There are now #{Recipe.count} rows in the recipes table"
@@ -67,7 +94,7 @@ namespace :db do
       i.name = row['name']
       i.created_at = row['created_at']
       i.updated_at = row['updated_at']
-      i.save
+      i.save!
       puts "Ingredient \"#{i.name}\" saved"
     end
     puts "There are now #{Ingredient.count} rows in the ingredients table"
@@ -75,17 +102,18 @@ namespace :db do
     recipe_ingredients_csv_text = File.read(Rails.root.join('lib', 'csv', 'recipe_ingredients.csv'))
     recipe_ingredients_csv = CSV.parse(recipe_ingredients_csv_text, :headers => true, :encoding => 'ISO-8859-1')
     recipe_ingredients_csv.each do |row|
-      ri = Recipe.new
+      ri = RecipeIngredient.new
       ri.id = row['id']
       ri.recipe_id = row['recipe_id']
       ri.ingredient_id = row['ingredient_id']
-      ri.units = row['units']
       ri.created_at = row['created_at']
       ri.updated_at = row['updated_at']
-      ri.save
-      puts "Recipe Ingredient \"#{r.id}\" saved"
+      ri.notes = row['notes']
+      ri.amount = row['amount']
+      ri.measure_id = row['measure_id']
+      ri.save!
+      puts "Recipe Ingredient \"#{ri.id}\" saved"
     end
     puts "There are now #{RecipeIngredient.count} rows in the recipe-ingredients table"
   end
-
 end
