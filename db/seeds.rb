@@ -1,6 +1,30 @@
-grams = Measure.create(measure_type: Measure.measure_types[:mass], unit: 'gram', abbreviation: 'g')
-mls = Measure.create(measure_type: Measure.measure_types[:volume], unit: 'milliliter', abbreviation: 'ml')
-count = Measure.create(measure_type: Measure.measure_types[:number], unit: 'number')
+# https://abbreviations.yourdictionary.com/articles/measurement-abbreviations.html
+Measure.create(measure_type: Measure.measure_types[:mass], unit: 'milligrams', abbreviation: 'mg')
+grams = Measure.create(measure_type: Measure.measure_types[:mass], unit: 'grams', abbreviation: 'g')
+Measure.create(measure_type: Measure.measure_types[:mass], unit: 'kilograms', abbreviation: 'kg')
+Measure.create(measure_type: Measure.measure_types[:mass], unit: 'ounces', abbreviation: 'oz')
+Measure.create(measure_type: Measure.measure_types[:mass], unit: 'pounds', abbreviation: 'lb')
+
+mls = Measure.create(measure_type: Measure.measure_types[:volume], unit: 'milliliters', abbreviation: 'ml')
+Measure.create(measure_type: Measure.measure_types[:volume], unit: 'liters', abbreviation: 'l')
+Measure.create(measure_type: Measure.measure_types[:volume], unit: 'teaspoons', abbreviation: 'tsp')
+Measure.create(measure_type: Measure.measure_types[:volume], unit: 'tablespoons', abbreviation: 'tbsp')
+Measure.create(measure_type: Measure.measure_types[:volume], unit: 'cups', abbreviation: 'c')
+Measure.create(measure_type: Measure.measure_types[:volume], unit: 'quarts', abbreviation: 'qt')
+Measure.create(measure_type: Measure.measure_types[:volume], unit: 'pints', abbreviation: 'pt')
+Measure.create(measure_type: Measure.measure_types[:volume], unit: 'gallons', abbreviation: 'gal')
+
+Measure.create(measure_type: Measure.measure_types[:distance], unit: 'millimeters', abbreviation: 'mm')
+Measure.create(measure_type: Measure.measure_types[:distance], unit: 'centimeters', abbreviation: 'cm')
+Measure.create(measure_type: Measure.measure_types[:distance], unit: 'inches', abbreviation: 'in')
+Measure.create(measure_type: Measure.measure_types[:distance], unit: 'feet', abbreviation: 'ft')
+# Measure.create(measure_type: Measure.measure_types[:distance], unit: 'meters', abbreviation: 'm')
+# Measure.create(measure_type: Measure.measure_types[:distance], unit: 'kilometers', abbreviation: 'km')
+# Measure.create(measure_type: Measure.measure_types[:distance], unit: 'yards', abbreviation: 'yd')
+# Measure.create(measure_type: Measure.measure_types[:distance], unit: 'miles', abbreviation: 'mi')
+
+count = Measure.create(measure_type: Measure.measure_types[:number], unit: 'count')
+
 
 kenji_kung_pao_chicken = Recipe.create!(
   name: "Kenji Kung Pao Chicken",
