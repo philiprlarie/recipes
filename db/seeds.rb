@@ -24,7 +24,7 @@ Measure.create(measure_type: Measure.measure_types[:distance], unit: 'feet', abb
 # Measure.create(measure_type: Measure.measure_types[:distance], unit: 'miles', abbreviation: 'mi')
 
 count = Measure.create(measure_type: Measure.measure_types[:number], unit: 'count')
-
+Measure.create(measure_type: Measure.measure_types[:number], unit: 'pinch')
 
 kenji_kung_pao_chicken = Recipe.create!(
   name: "Kenji Kung Pao Chicken",
