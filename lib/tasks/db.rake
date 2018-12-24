@@ -115,5 +115,10 @@ namespace :db do
       puts "Recipe Ingredient \"#{ri.id}\" saved"
     end
     puts "There are now #{RecipeIngredient.count} rows in the recipe-ingredients table"
+
+    ActiveRecord::Base.connection.reset_pk_sequence!(Measure.table_name)
+    ActiveRecord::Base.connection.reset_pk_sequence!(Recipe.table_name)
+    ActiveRecord::Base.connection.reset_pk_sequence!(Ingredient.table_name)
+    ActiveRecord::Base.connection.reset_pk_sequence!(RecipeIngredient.table_name)
   end
 end
