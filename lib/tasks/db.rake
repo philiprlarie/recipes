@@ -15,26 +15,16 @@ namespace :db do
 
     conn = ActiveRecord::Base.connection.raw_connection
 
-    # http://www.postgresqltutorial.com/postgresql-show-tables/
-    table_names_sql = <<-SQL
-        SELECT tablename
-        FROM pg_catalog.pg_tables
-        WHERE
-          schemaname != 'pg_catalog' AND
-          schemaname != 'information_schema';
-    SQL
-
-    names = conn.exec(table_names_sql)
+    names = ['ingredients', 'measures', 'recipe_ingredients', 'recipes']
 
     # https://www.rubydoc.info/gems/pg/PG/Result
-    names.each_row do |name|
-      name = name[0]
+    names.each do |name|
       puts name
 
       # binding.irb
       File.open(File.join(csv_directory, name + '.csv'), 'w') do |file|
         # https://www.rubydoc.info/gems/pg/PG/Connection#copy_data-instance_method
-        conn.copy_data("COPY " + name + " TO STDOUT DELIMITER ',' CSV HEADER;") do
+        conn.copy_data("COPY (SELECT * from " + name + " ORDER BY id) TO STDOUT DELIMITER ',' CSV HEADER;") do
           while row = conn.get_copy_data
             # https://www.ruby-forum.com/t/utf8-hell/182759 to fix encoding error, force_encoding
             file.puts row.force_encoding('UTF-8')
