@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # https://guides.rubyonrails.org/routing.html#controller-namespaces-and-routing
   namespace :api do
+    post 'recipes/:id/photo' => 'recipes#update_photo'
     jsonapi_resources :recipes
     jsonapi_resources :ingredients
     jsonapi_resources :measures

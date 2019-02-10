@@ -15,7 +15,14 @@ namespace :db do
 
     conn = ActiveRecord::Base.connection.raw_connection
 
-    names = ['ingredients', 'measures', 'recipe_ingredients', 'recipes']
+    names = [
+      'ingredients',
+      'measures',
+      'recipe_ingredients',
+      'recipes',
+      'active_storage_attachments',
+      'active_storage_blobs'
+    ]
 
     # https://www.rubydoc.info/gems/pg/PG/Result
     names.each do |name|
@@ -106,9 +113,43 @@ namespace :db do
     end
     puts "There are now #{RecipeIngredient.count} rows in the recipe-ingredients table"
 
+    active_storage_blobs_csv_text = File.read(Rails.root.join('lib', 'csv', 'active_storage_blobs.csv'))
+    active_storage_blobs_csv = CSV.parse(active_storage_blobs_csv_text, :headers => true, :encoding => 'ISO-8859-1')
+    active_storage_blobs_csv.each do |row|
+      blob = ActiveStorage::Blob.new
+      blob.id = row['id']
+      blob.key = row['key']
+      blob.filename = row['filename']
+      blob.content_type = row['content_type']
+      blob.metadata = row['metadata']
+      blob.byte_size = row['byte_size']
+      blob.checksum = row['checksum']
+      blob.created_at = row['created_at']
+      blob.save!
+      puts "Blob \"#{blob.id}\" saved: #{blob.filename}"
+    end
+    puts "There are now #{ActiveStorage::Blob.count} rows in the active_storage_blobs table"
+
+    active_storage_attachments_csv_text = File.read(Rails.root.join('lib', 'csv', 'active_storage_attachments.csv'))
+    active_storage_attachments_csv = CSV.parse(active_storage_attachments_csv_text, :headers => true, :encoding => 'ISO-8859-1')
+    active_storage_attachments_csv.each do |row|
+      attachment = ActiveStorage::Attachment.new
+      attachment.id = row['id']
+      attachment.name = row['name']
+      attachment.record_type = row['record_type']
+      attachment.record_id = row['record_id']
+      attachment.blob_id = row['blob_id']
+      attachment.created_at = row['created_at']
+      attachment.save!
+      puts "Attachment \"#{attachment.id}\" saved"
+    end
+    puts "There are now #{ActiveStorage::Attachment.count} rows in the active_storage_attachments table"
+
     ActiveRecord::Base.connection.reset_pk_sequence!(Measure.table_name)
     ActiveRecord::Base.connection.reset_pk_sequence!(Recipe.table_name)
     ActiveRecord::Base.connection.reset_pk_sequence!(Ingredient.table_name)
     ActiveRecord::Base.connection.reset_pk_sequence!(RecipeIngredient.table_name)
+    ActiveRecord::Base.connection.reset_pk_sequence!(ActiveStorage::Blob.table_name)
+    ActiveRecord::Base.connection.reset_pk_sequence!(ActiveStorage::Attachment.table_name)
   end
 end
