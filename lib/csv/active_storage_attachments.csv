@@ -1,1 +1,4 @@
 id,name,record_type,record_id,blob_id,created_at
+1,photo,Recipe,1,1,2019-02-10 07:58:37.094959
+2,photo,Recipe,2,2,2019-02-10 08:03:22.035811
+3,photo,Recipe,3,3,2019-02-10 08:05:30.321648
