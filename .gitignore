@@ -16,8 +16,12 @@
 # Ignore uploaded files in development
 # /storage/*
 # !/storage/.keep
+# if this repo gets too big, we can start ignoring this directory again.
+# use the git-filter-branch command with instructions here https://stackoverflow.com/questions/10067848/remove-folder-and-its-contents-from-git-githubs-history
 
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+.DS_Store

@@ -1,0 +1,5 @@
+if this git repo becomes too big, you can remove this directory using the git-filter-branch command
+
+if this git repo becomes too big, you can remove this directory
+
+https://stackoverflow.com/questions/10067848/remove-folder-and-its-contents-from-git-githubs-history
