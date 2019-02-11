@@ -8,3 +8,4 @@ id,name,record_type,record_id,blob_id,created_at
 10,photo,Recipe,7,10,2019-02-10 18:55:53.789253
 11,photo,Recipe,8,11,2019-02-10 18:57:13.594148
 12,photo,Recipe,9,12,2019-02-10 19:02:27.60189
+15,photo,Recipe,10,15,2019-02-10 23:40:13.389933

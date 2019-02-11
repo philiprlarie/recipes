@@ -9,4 +9,13 @@ class Api::RecipeResource < JSONAPI::Resource
 
     Rails.application.routes.url_helpers.rails_blob_path(@model.photo, only_path: true)
   end
+
+  def self.updatable_fields(context)
+    super - [:photo_url]
+  end
+
+  def self.creatable_fields(context)
+    super - [:photo_url]
+  end
+
 end
