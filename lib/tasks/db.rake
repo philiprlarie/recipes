@@ -145,6 +145,15 @@ namespace :db do
     end
     puts "There are now #{ActiveStorage::Attachment.count} rows in the active_storage_attachments table"
 
+    # this is necessary because the updated at gets set when recipe ingredients are added
+    # so we have to set it back to what it was in the csv
+    recipes_csv.each do |row|
+      r = Recipe.find(row['id'])
+      r.updated_at = row['updated_at']
+      r.save!
+      puts "updated_at for Recipe \"#{r.id}\" saved"
+    end
+
     ActiveRecord::Base.connection.reset_pk_sequence!(Measure.table_name)
     ActiveRecord::Base.connection.reset_pk_sequence!(Recipe.table_name)
     ActiveRecord::Base.connection.reset_pk_sequence!(Ingredient.table_name)
