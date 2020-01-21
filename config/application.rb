@@ -24,7 +24,7 @@ module Recipes
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'https://localhost:4200', 'https://localhost:3000', 'https://rocky-savannah-22864.herokuapp.com'
+        origins 'http://localhost:4200', 'http://localhost:3000', 'https://rocky-savannah-22864.herokuapp.com'
         resource '*', headers: :any, methods: [:get]
       end
     end
@@ -38,5 +38,8 @@ module Recipes
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    // enables image urls to remain static for a month for caching purposes
+    config.active_storage.service_urls_expire_in = 1.month
   end
 end

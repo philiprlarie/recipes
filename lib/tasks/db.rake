@@ -45,6 +45,7 @@ namespace :db do
 
   desc "reset the database using data stored in CSV files"
   task seed_from_csv: :environment do
+    # commenting out since dropping / creating db is not supported on heroku
     # Rake::Task['db:drop'].invoke
     # Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
