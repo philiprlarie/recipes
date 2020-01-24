@@ -39,7 +39,7 @@ module Recipes
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    // enables image urls to remain static for a month for caching purposes
+    # enables image urls to remain static for a month for caching purposes
     config.active_storage.service_urls_expire_in = 1.month
   end
 end
