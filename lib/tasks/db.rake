@@ -50,6 +50,13 @@ namespace :db do
     # Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
 
+    RecipeIngredient.delete_all
+    Measure.delete_all
+    Recipe.delete_all
+    Ingredient.delete_all
+    ActiveStorage::Blob.delete_all
+    ActiveStorage::Attachment.delete_all
+
     measures_csv_text = File.read(Rails.root.join('lib', 'csv', 'measures.csv'))
     measures_csv = CSV.parse(measures_csv_text, :headers => true, :encoding => 'ISO-8859-1')
     measures_csv.each do |row|
